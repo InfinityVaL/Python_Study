@@ -1,4 +1,4 @@
-Problem 1. The two maximum items in the list.
+Problem 1. The two maximum items in the list:
 transactions = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
 max_1 = 2500
 max_2 = 2001
@@ -14,3 +14,157 @@ for i in range(0, len(trans)):
         max_2 = trans[i]
         
 print(max_2, max_1, sep = ', ')
+
+
+Task 2. Average of the scores in the list:
+user_scores = [1, 4, 5, 5, 5, 5, 5, 4, 4, 4, 3, 1]
+summ = user_scores[0]
+
+for i in range(1, len(user_scores)):
+    summ += user_scores[i]
+    
+print(summ / len(user_scores))
+
+
+Problem 3. One of the modifications of linear search:
+trans = [-1000, -200, -90, -80, -78, -61, 200, -9, -31, 200, 600, -100, 1000]
+summ = 0
+for j in range(len(trans)):    
+    if trans[j] > 0:        
+        summ += trans[j]
+print(summ)
+
+
+Problem 4. Complexity of Binary Search:
+list = [15, 20, 30, 34, 45, 56, 67, 78, 90, 100, 110, 120, 135, 140, 150, 165, 166, 168, 192, 195, 200, 222, 226, 300, 350]
+key = 140
+print("Key:", key)
+length = len(list)
+a = int(length - 1)
+value = list[a]
+count = 0
+
+if key < list[0] or key > list[length - 1]:
+  value = "No"
+  print(False)
+
+if key == list[0] or key == list[length - 1]:
+  value = "Yes"
+  print(True)
+
+while value != key and value != "No" and value != "Yes":
+  c = a
+  if key < value:
+    length = a
+    a = int(a / 2)
+    value = list[a]
+    count += 1
+
+  if key > value:
+    a = int((a + length) / 2)
+    value = list[a]
+    count += 1
+  
+  if c == a:
+    print(False)
+    break
+
+  if value == key:
+    print(True)
+
+print("Count:", count)
+
+
+Task 5. Sorting the top 2 items:
+trans = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+for j in range(len(trans)):
+    for i in range(1, len(trans)):
+        a = trans[i-1]
+        b = trans[i]
+        if b < a:
+            trans[i] = a
+            trans[i-1] = b
+print("trans_sort =",trans)
+
+trans = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+for j in range(2):
+    for i in range(1, len(trans)-j):
+        if trans[i] < trans[i-1]:
+            trans[i-1], trans[i] = trans[i], trans[i-1]
+print("trans_sort =",trans)
+
+
+Task 6. Comparative analysis:
+trans = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+max_1 = max_2 = trans[0]
+a = 0
+
+for i in range(0, len(trans)):
+    if trans[i] > max_1:
+        max_1 = trans[i] 
+    a += i
+        
+for i in range(0, len(trans)):
+    if trans[i] > max_2 and trans[i] != max_1:
+        max_2 = trans[i]
+    a += i
+        
+print(max_2, max_1, sep = ', ')
+print(i)
+
+trans = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+a = 0
+for j in range(2):
+    for i in range(1, len(trans)-j):
+        if trans[i] < trans[i-1]:
+            trans[i-1], trans[i] = trans[i], trans[i-1]
+        a += i
+print("trans_sort =",trans)
+print(i)
+
+The method in problem five is better, since there are one fewer iterations (9 versus 10).
+
+
+Problem 7. Index of the minimum element in the list:
+week = [8, 10, 9, 8, 13, 5, 17]
+a = week[0]
+for i in range(0, len(week)):
+  if week[i] < a:
+    a = week[i]
+    b = i+1
+print("Day(min) =", b)
+
+
+Task 8. Counting even elements in the list:
+week = [8, 10, 9, 8, 13, 5, 17]
+for i in range(0, len(week)):
+  if week[i] % 2 == 0:
+    a = i+1
+    print("Day(even) =", a)
+    
+
+Problem 9. The longest chain of fives:
+scores = [1, 5, 5, 1, 5, 5, 5, 2, 5, 5, 1, 5]
+a = b = 0
+for i in range(0, len(scores)):
+  if scores[i] == 5:
+    a += 1
+  if scores[i] != 5:
+    if b < a:
+      b = a
+      a = 0
+print("5 (Count) =", b)
+
+
+Task 10. Sort by insertion:
+data = [6, 5, 3, 1, 8, 7, 2, 4]
+for i in range(1, len(data)):
+  a = data[i]
+  for j in range(1, i+1):
+    if a < data[i-j]:
+      data[i-j+1] = data[i-j]
+      q = j
+  if data[i-q] > a:
+    data[i-q] = a
+print(data)
+
