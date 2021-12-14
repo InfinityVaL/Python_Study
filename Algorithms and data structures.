@@ -1,0 +1,16 @@
+Problem 1. The two maximum items in the list.
+transactions = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+max_1 = 2500
+max_2 = 2001
+trans = [100, 98, 1000, 2500, 299, 1898, 1989, 2001, 50, 10, 70]
+max_1 = max_2 = trans[0]
+
+for i in range(0, len(trans)):
+    if trans[i] > max_1:
+        max_1 = trans[i]
+        
+for i in range(0, len(trans)):
+    if trans[i] > max_2 and trans[i] != max_1:
+        max_2 = trans[i]
+        
+print(max_2, max_1, sep = ', ')
