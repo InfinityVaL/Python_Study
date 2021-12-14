@@ -1,0 +1,270 @@
+
+Task 1. Conversion of currencies:
+def rub_to_USD(rub_amount, currency = 'USD'):
+  result = "Расчёт не может быть совершён"
+  if currency == "USD":
+    usd = rub_amount / 70.99
+    result = usd
+    return print("RUB:", rub_amount, "\nUSD:", result)
+  else:
+    return print(result)
+
+def rub_to_CNY(rub_amount, currency):
+  result = "Расчёт не может быть совершён"
+  if currency == "CNY":
+    usd = rub_amount / 70.99
+    cny = usd * 6.44
+    return print("RUB:", rub_amount, "\nUSD:", usd, "\nCNY:", cny)
+  else:
+    return print(result)
+
+def rub_to_currency(rub_amount, currency = 'USD'):
+  print("Перевод в доллары:")
+  rub_to_USD(rub_amount, currency)
+  print("\nПеревод в юани:")
+  rub_to_CNY(rub_amount, currency)
+
+# 1
+print("\n1.")  
+rub_to_CNY(7200, 'EUR')
+
+# 2 
+print("\n2.")
+rub_to_CNY(7200, "CNY")
+
+# 3
+print("\n3.")
+rub_to_USD(7200)
+
+# 4
+print("\n4.")
+rub_to_currency(7200, 'CNY')
+
+# 5
+print("\n5.")
+rub_to_currency(7200, 'USD')
+
+# 6
+print("\n6.")
+rub_to_currency(7200)
+
+
+
+Task 2. Processing questionnaires:
+applications = [
+         'name=Аня,phone=8800234 ,city=москва',
+         'name=КОЛЯ,phone=8800900871 ,city=МОСКВА',
+         'name=Валентина,phone=7950900871 ,city=волгоград',
+         'name=,phone=7999901871,city=москва',
+         'name=Иван,phone=7999901871,city=москва',
+         'name=Инга,phone=,city=москва'
+]
+
+# Version without functions:
+for string in applications:
+  string = string.replace(' ', '')
+  string = string.split(',') 
+  string[2] = string[2].lower()
+  if string[2] == "city=москва":
+    for i in range(len(string[1])):
+      j = i
+    if j == 15 and (string[1][6] == "7" or string[1][6] == "8"):
+      print(string)
+
+# function to check the validity of the number:
+def check_phone(phone):
+  for i in range(len(phone[1])):
+    j = i
+  if j == 15 and (phone[1][6] == "7" or phone[1][6] == "8"):
+    return True
+  else:
+    return False
+
+# city check function:
+def check_city(city):
+  city[2] = city[2].lower()
+  if city[2] == "city=москва":
+    return True
+  else:
+    return False
+
+# function of checking one profile:
+def check_application(application):
+  application = application.replace(' ', '')
+  application = application.split(',')
+  value = check_city(application)
+  if value != False:
+    value = check_phone(application)
+  return value
+  
+# function for checking the list of profiles:
+def find_valid_applications(applications):
+  for app in applications:
+    value = check_application(app)
+    print(app, '---', value)  
+    
+    
+Problem 3. Factorial:
+def factorial(n):
+  if n != 0:
+    return n * factorial(n-1)
+  else:
+    return 1
+    
+    
+Problem 4. Palindrome:
+# No recursion:
+def palindrom_NoRec(text):
+  text = text.lower()
+  text = text.replace(" ", "")
+
+  for i in range(int(len(text)/2)):
+    if text[i] != text[-i-1]:
+      return False
+  return True
+
+# Recursion:
+def palindrom(text):
+  text = text.lower()
+  text = text.replace(" ", "")
+  
+  if len(text) > 1:
+    if text[0] == text[-1]:
+      return palindrom(text[1:-1])
+    else:
+      return False
+  return True
+  
+  
+Problem 5. Number of digits in a number:
+# simplest way with strings:
+def quantity_1(number):
+  return len(number)
+
+# way with strings:
+def quantity_2(number):
+  if len(number) > 0:
+    return 1 + quantity_2(number[:-1])
+  else:
+    return 0
+    
+# no string variables:
+def quantity_3(number):
+  if int(number) > 0:
+    return 1 + quantity_3(number / 10)
+  else:
+    return 0
+    
+    
+Task 6. The number of excellent students and poor students:
+scores = [
+          [2, 4, 4, 5, 2, 3, 3, 1, 1],
+          [3, 4, 2, 3, 3, 1, 5, 2, 4],
+          [5, 3, 3, 4, 3, 2, 3, 5],
+          [4, 2, 2, 4, 2],
+          [4, 3, 3, 3, 3, 3, 3],
+          [2, 1, 5, 3, 5, 5],
+          [4, 4, 4, 4, 5, 5],
+          [4, 1, 3, 4, 1, 1]
+]
+
+def passed(clas):
+  i = 0
+  for value in clas:
+    if value >= 3:
+      i += 1
+  return i
+  
+def not_passed(clas):
+  i = 0
+  for value in clas:
+    if value < 3:
+      i += 1
+  return i
+
+def efficiency(clas, good, bad):
+  j = 0
+  for i in range(len(clas)):
+    if clas[i] == 4 or clas[i] == 5:
+      j += 1
+  if (j * 100) / (i+1) > good:
+    return 'Отлично'
+  if (j * 100) / (i+1) < bad:
+    return 'Плохо'
+  else:
+    return 'Удовлетворительно'
+    
+def get_info(scores):
+  good = int(input('Threshold Good: '))
+  bad = int(input('Threshold Bad: '))
+  for clas in scores:
+    p = passed(clas)
+    np = not_passed(clas)
+    e = efficiency(clas, good, bad)
+    print(f"Количество сдавших: {p}, Количество проваливших: {np}, Итог по классу: {e}")
+
+
+Task 7. Calculator:
+def arrange(expression):    # Функция создания нового строкового списка, где каждое число и арифметический знак являются отдельными элементами списка, разделенные запятыми.
+  number = 0
+  mark = 0
+  integer = []
+  number_exp = []
+  
+  for i in range(len(expression)):
+
+    if expression[i] != '*' and expression[i] != '+':   # сбор и перевод всех цифр из потока в целочисленный список
+      integer.append(int(expression[i]))
+      mark = 1
+      
+    if expression[i] == '*' and mark == 1 and i != len(expression)-1:   # когда в потоке встречется арифметический знак, набор цифр заканчивается
+      for j in range(len(integer)):                                     # и тут начинается перебор этих уже целочисленных цифр, чтобы превратить их в число.
+        number += int(integer[j] * 10**(len(integer) - j - 1))          # формула перевода потока цифр в число.
+      number_exp.extend([str(number), '*'])                             # Добавление числа и знака после него в новый строковый список.
+      mark = 0
+      number = 0
+      integer = []
+
+    if expression[i] == '+' and mark == 1 and i != len(expression)-1:   # Тоже самое, описанное выше, для следующего арифметического знака.
+      for j in range(len(integer)):
+        number += int(integer[j] * 10**(len(integer) - j - 1))
+      number_exp.extend([str(number), '+'])
+      mark = 0
+      number = 0
+      integer = []
+
+    if i == len(expression)-1:                # Тоже самое, описанное выше, только если встречается конец списка.
+      for j in range(len(integer)):
+        number += int(integer[j] * 10**(len(integer) - j - 1))
+      number_exp.append(str(number))
+      number = 0
+      integer = []
+
+  return number_exp         # Возврат нового строкового списка.
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def multiplication(number_exp): # Функция создания нового целочисленного списка, в который входят только результаты произведения и отдельные числа, которые надо суммировать.
+  mult = 1
+  no_mult_exp = []
+  for i in range(len(number_exp)):
+
+    if number_exp[i] != '*' and number_exp[i] != '+': # Перебор и перемножение элементов списка, где встречается знак умножения.
+      mult *= int(number_exp[i])
+
+    if number_exp[i] == '+':       # Если встрчается знак плюс, значение из переменной "mult" записывается в новый список.
+      no_mult_exp.append(mult)
+      mult = 1
+
+    if i == len(number_exp)-1:     # Если встрчается конец списка, то значение из "mult" также записывается в новый список.
+      no_mult_exp.append(mult)
+
+  return no_mult_exp    # Возврат нового целочисленного списка.
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def extract_expression(expression):  # Окончательная функция, которая возвращает результат выражения, сделанного в верном порядке.
+  number_exp = arrange(expression) 
+  no_mult_exp = multiplication(number_exp) 
+  result = sum(no_mult_exp)       # Использовал встроенную функцию суммирования элементов целочисленного списка.
+  return result
