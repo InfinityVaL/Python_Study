@@ -1,0 +1,149 @@
+Problem 1: Comprehensions and Set Operations:
+# 1:
+power_2_numbers = [2**n for n in range(1, 100) if 2**n <= 200]
+print(power_2_numbers)
+
+# 2:
+generated_set = {1 if n % 5 == 0 else n for n in range(8, 51)}
+print(generated_set)
+
+# 3:
+new_set = generated_set.symmetric_difference(power_2_numbers)
+print(new_set)
+
+# 4:
+new_set = {list(new_set)[n] for n in range(len(new_set)) if list(new_set)[n] > 4 and list(new_set)[n] < 120}
+print(new_set)
+
+# 5:
+unicode_values = {x: chr(x) for x in new_set}
+print(unicode_values)
+
+
+Task 2. Duty:
+schedule = {
+    '1001': ['пн', 'вс'],
+    '1231': ['пн', 'вт'],
+    '1232': ['ср', 'чт', 'пт'],
+    '1280': ['ср', 'пт', 'вс'],
+    '1282': ['чт'],
+    '1290': ['пт', 'вс'],
+    '1303': ['вт', 'вс'],
+}
+
+unique_days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
+
+days = []
+for x, y in schedule.items():
+  days.extend(y)
+no_shift_days = set(unique_days) - set(days)
+print(no_shift_days, '\n')
+
+
+z = 0
+for day in unique_days:
+  for id, id_days in schedule.items():
+    for id_day in id_days:
+      if id_day == day:
+        z += 1
+  number_of_workers = {day: z}
+  z = 0
+  print(number_of_workers)
+  
+
+Problem 3. Distance between two points:
+coords1 = [(1, 10), (1, 11)]
+coords2 = [(0, 20), (20, 20)]
+coords3 = [(100, 91, 87), (80, 35, 70)]
+coords4 = [(0, 100, 20), (0, 0, 80)]
+
+# Without ZIP:
+c1 = ((coords1[1][0] - coords1[0][0])**2 + (coords1[1][1] - coords1[0][1])**2)**0.5
+c2 = ((coords2[1][0] - coords2[0][0])**2 + (coords2[1][1] - coords2[0][1])**2)**0.5
+c3 = ((coords3[1][0] - coords3[0][0])**2 + (coords3[1][1] - coords3[0][1])**2 + (coords3[1][2] - coords3[0][2])**2)**0.5
+c4 = ((coords4[1][0] - coords4[0][0])**2 + (coords4[1][1] - coords4[0][1])**2 + (coords4[1][2] - coords4[0][2])**2)**0.5
+print(c1)
+print(c2)
+print(c3)
+print(c4, '\n')
+
+
+# With ZIP:
+length1 = 0
+for a, b in zip(coords1[0], coords1[1]):
+  length1 += (b - a)**2
+print(length1**0.5)
+
+length2 = 0
+for a, b in zip(coords2[0], coords2[1]):
+  length2 += (b - a)**2
+print(length2**0.5)
+
+length3 = 0
+for a, b in zip(coords3[0], coords3[1]):
+  length3 += (b - a)**2
+print(length3**0.5)
+
+length4 = 0
+for a, b in zip(coords4[0], coords4[1]):
+  length4 += (b - a)**2
+print(length4**0.5)
+
+
+Task 4. Inventory of goods:
+ids = ['1111:271', '1111:190', '1231:106', '1211:104', '1111:201', '1231:120', '1001:205', '1001:223', '1001:127', '1001:236', \
+      '1111:229', '1231:286', '1231:195', '1001:279', '1001:124', '1111:292', '1505:219', '1231:259', '1231:253', '1001:220', '1001:202',\
+      '1231:103', '1211:249', '1212:275']
+count = [111, 3, 13, 111, 9, 5, 17, 10, 13, 3, 16, 4, 16, 11, 18, 12, 14, 4, 3, 2, 14, 14, 10, 10]
+
+items_count = {x: y for x, y in zip(ids, count)}
+# print(items_count)
+
+# 1:
+uniq_cat = {item.split(':')[0] for item in ids}
+print(f'Количество уникальных категорий: {uniq_cat}\n')
+
+# 2:
+aver_good = []
+uniq_cat = list(uniq_cat)
+category = [item.split(':')[0] for item in ids]
+# print(category)
+cat_count = [x for x in zip(category, count)]
+# print(cat_count)
+for i in range(len(uniq_cat)):
+  summ = 0
+  z = 0
+  for j in range(len(cat_count)):
+    if uniq_cat[i] == cat_count[j][0]:
+      summ += cat_count[j][1]
+      z += 1
+  aver_good.append({uniq_cat[i]: round(summ/z, 1)})  
+print(f'Среднее количество единиц товара на складе в категории: {aver_good}\n')
+
+# 3:
+aver_uniq_good = []
+number = [item.split(':')[1] for item in ids]
+cat_number = [[category[i], number[i]] for i in range(len(category))]
+# print(cat_number)
+for i in range(len(uniq_cat)):
+  summ = 0
+  z = 0
+  for j in range(len(cat_number)):
+    if uniq_cat[i] == cat_number[j][0]:
+      summ += int(cat_number[j][1])
+      z += 1
+  aver_uniq_good.append({uniq_cat[i]: round(summ/z)})  
+print(f'Среднее количество уникальных товаров в категории: {aver_uniq_good}\n')
+
+# 4:
+max_good = []
+max = count[0]
+for x, y in items_count.items():
+  if y > max:
+    max = y
+for x, y in items_count.items():
+  if y == max:
+    max_good.append(x)
+print(f'ID товаров с максимальным количеством единиц на складе: {max_good}\n')
+
+
