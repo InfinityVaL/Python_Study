@@ -158,3 +158,9 @@ word_frequency = word_frequency.lower()
 word_frequency = word_frequency.split()
 word_frequency = {x: word_frequency.count(x) for x in word_frequency}
 print(word_frequency)
+
+Problem 5. Word frequency - part 2:
+sorted_frequency = word_frequency.items()
+sorted_frequency = sorted(sorted_frequency, key = operator.itemgetter(0), reverse = True)
+sorted_frequency = sorted(sorted_frequency, key = operator.itemgetter(1), reverse = True)
+sorted_frequency
