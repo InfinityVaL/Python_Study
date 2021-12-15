@@ -1,4 +1,4 @@
-Problem 1: Comprehensions and Set Operations:
+# Problem 1: Comprehensions and Set Operations:
 # 1:
 power_2_numbers = [2**n for n in range(1, 100) if 2**n <= 200]
 print(power_2_numbers)
@@ -20,7 +20,7 @@ unicode_values = {x: chr(x) for x in new_set}
 print(unicode_values)
 
 
-Task 2. Duty:
+# Task 2. Duty:
 schedule = {
     '1001': ['пн', 'вс'],
     '1231': ['пн', 'вт'],
@@ -33,13 +33,14 @@ schedule = {
 
 unique_days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
 
+# 1:
 days = []
 for x, y in schedule.items():
   days.extend(y)
 no_shift_days = set(unique_days) - set(days)
 print(no_shift_days, '\n')
 
-
+# 2:
 z = 0
 for day in unique_days:
   for id, id_days in schedule.items():
@@ -51,7 +52,7 @@ for day in unique_days:
   print(number_of_workers)
   
 
-Problem 3. Distance between two points:
+# Problem 3. Distance between two points:
 coords1 = [(1, 10), (1, 11)]
 coords2 = [(0, 20), (20, 20)]
 coords3 = [(100, 91, 87), (80, 35, 70)]
@@ -66,7 +67,6 @@ print(c1)
 print(c2)
 print(c3)
 print(c4, '\n')
-
 
 # With ZIP:
 length1 = 0
@@ -90,12 +90,13 @@ for a, b in zip(coords4[0], coords4[1]):
 print(length4**0.5)
 
 
-Task 4. Inventory of goods:
+# Task 4. Inventory of goods:
 ids = ['1111:271', '1111:190', '1231:106', '1211:104', '1111:201', '1231:120', '1001:205', '1001:223', '1001:127', '1001:236', \
       '1111:229', '1231:286', '1231:195', '1001:279', '1001:124', '1111:292', '1505:219', '1231:259', '1231:253', '1001:220', '1001:202',\
       '1231:103', '1211:249', '1212:275']
 count = [111, 3, 13, 111, 9, 5, 17, 10, 13, 3, 16, 4, 16, 11, 18, 12, 14, 4, 3, 2, 14, 14, 10, 10]
 
+# Ваш код здесь
 items_count = {x: y for x, y in zip(ids, count)}
 # print(items_count)
 
@@ -106,33 +107,33 @@ print(f'Количество уникальных категорий: {uniq_cat}
 # 2:
 aver_good = []
 uniq_cat = list(uniq_cat)
-category = [item.split(':')[0] for item in ids]
+category = [item.split(':')[0] for item in ids] # Вычленяю отдельно категории в виде списка.
 # print(category)
-cat_count = [x for x in zip(category, count)]
+cat_count = [x for x in zip(category, count)] # Совмещаю категории с количеством товаров на складе в виде списка.
 # print(cat_count)
 for i in range(len(uniq_cat)):
   summ = 0
   z = 0
   for j in range(len(cat_count)):
     if uniq_cat[i] == cat_count[j][0]:
-      summ += cat_count[j][1]
+      summ += cat_count[j][1]            # Нахожу сумму товара.
       z += 1
-  aver_good.append({uniq_cat[i]: round(summ/z, 1)})  
+  aver_good.append({uniq_cat[i]: round(summ/z, 1)})    # Нахожу среднее арифметическое.
 print(f'Среднее количество единиц товара на складе в категории: {aver_good}\n')
 
 # 3:
 aver_uniq_good = []
-number = [item.split(':')[1] for item in ids]
-cat_number = [[category[i], number[i]] for i in range(len(category))]
+number = [item.split(':')[1] for item in ids] # Отбираю отдельно количество уникальных товаров в категории в виде списка.
+cat_number = [[category[i], number[i]] for i in range(len(category))] # Совмещаю категории с количеством уникальных товаров в виде списков в списке.
 # print(cat_number)
 for i in range(len(uniq_cat)):
   summ = 0
   z = 0
   for j in range(len(cat_number)):
     if uniq_cat[i] == cat_number[j][0]:
-      summ += int(cat_number[j][1])
+      summ += int(cat_number[j][1]) # Складываю уникальные товары в одинаковыъ категориях.
       z += 1
-  aver_uniq_good.append({uniq_cat[i]: round(summ/z)})  
+  aver_uniq_good.append({uniq_cat[i]: round(summ/z)})  # Нахожу среднее.
 print(f'Среднее количество уникальных товаров в категории: {aver_uniq_good}\n')
 
 # 4:
@@ -147,7 +148,7 @@ for x, y in items_count.items():
 print(f'ID товаров с максимальным количеством единиц на складе: {max_good}\n')
 
 
-Problem 5. Word frequency - part 1:
+# Problem 5. Word frequency - part 1:
 document_text = 'There are the Food Courts in the cities that seats a lot of people and caters for every taste with dishes from all around the world. \
  The aromatic smells that come from the Food Courts arc so delicious that your mouth will water. \
  In recent years foreign foods have become a regular part of our life.'
@@ -159,8 +160,26 @@ word_frequency = word_frequency.split()
 word_frequency = {x: word_frequency.count(x) for x in word_frequency}
 print(word_frequency)
 
-Problem 5. Word frequency - part 2:
+
+# Problem 5. Word frequency - part 2:
 sorted_frequency = word_frequency.items()
 sorted_frequency = sorted(sorted_frequency, key = operator.itemgetter(0), reverse = True)
 sorted_frequency = sorted(sorted_frequency, key = operator.itemgetter(1), reverse = True)
 sorted_frequency
+
+
+# Problem 7. Area of a triangle:
+length = 0
+for a, b in zip(coords[0], coords[1]):
+  length += (b - a)**2
+A1A2 = length**0.5
+
+h = [(7, 2), (7, 10)] # Определил визуально.
+
+length = 0
+for a, b in zip(coords[0], coords[1]):
+  length += (b - a)**2
+h = length**0.5
+
+S = 0.5 * h * (A1A2)
+print(S)
