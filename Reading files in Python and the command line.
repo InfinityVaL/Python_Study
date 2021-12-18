@@ -1,0 +1,3 @@
+Task 1. Working with files on the command line:
+sort anna_words.txt | uniq -c > words_freq.txt
+wc -l < words_freq.txt >> words_freq.txt
