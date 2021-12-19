@@ -1,9 +1,9 @@
-Task 1. Working with files on the command line:
+Problem 1. Working with files on the command line:
 sort anna_words.txt | uniq -c > words_freq.txt
 wc -l < words_freq.txt >> words_freq.txt
 
 
-Task 2. Working with files in Python 1:
+Problem 2. Working with files in Python 1:
 string = []
 with open('words_freq.txt') as file:
   text = file.readlines()
@@ -14,3 +14,34 @@ for line in text:
   string.append(line)
 string = sorted(string, key = lambda s: s[0], reverse = True)
 string[:10]
+
+
+Problem 3. Working with files in Python 2:
+max = 0
+string = []
+with open('words_freq.txt') as file:
+  text = file.readlines()
+
+for line in text:               # Редактирование потока, чтобы оставить только начальные символы.
+  line = line.strip(' \n')
+  line = line.split(' ')
+  string.append(line[1][0])
+string = sorted(string)         # Сортировка списка символов.
+uniq = set(string)              # Создание множества уникальных символов.
+uniq = list(uniq)
+
+for i in range(len(uniq)):      # Создаю внешний цикл, в котором перебираются уникальные начальные символы.
+  count = 0
+
+  for j in range(len(string)):  # Создаю внутренний цикл, в котором перебираются все начальные символы из основного потока и сравниваются со значениями во внешнем цикле.
+    if uniq[i] == string[j]:
+      count += 1
+
+  if count > max:               # Поиск самого частого символа (буквы) и подсчёт его количества.
+    max = count
+    letter = []
+
+  if count == max:              # Условие на случай, если количество искомых символов больше одного.
+    letter.append(uniq[i])
+
+print({max: letter})
