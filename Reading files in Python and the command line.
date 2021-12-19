@@ -46,3 +46,15 @@ for i in range(len(uniq)):      # Создаю внешний цикл, в ко�
     letter.append(uniq[i])
 
 print({max: letter})
+
+
+Problem 4. Importing modules:
+import math 
+def circ_sqrt(r):
+    C = 2*math.pi*r
+    return C**0.5
+r = 0
+r = float(input('r = '))
+circ_sqrt(r)
+
+
