@@ -26,6 +26,7 @@ for line in text:               # Редактирование потока, ч�
   line = line.strip(' \n')
   line = line.split(' ')
   string.append(line[1][0])
+  
 string = sorted(string)         # Сортировка списка символов.
 uniq = set(string)              # Создание множества уникальных символов.
 uniq = list(uniq)
