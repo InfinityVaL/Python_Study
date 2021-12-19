@@ -1,3 +1,16 @@
 Task 1. Working with files on the command line:
 sort anna_words.txt | uniq -c > words_freq.txt
 wc -l < words_freq.txt >> words_freq.txt
+
+
+Task 2. Working with files in Python 1:
+string = []
+with open('words_freq.txt') as file:
+  text = file.readlines()
+for line in text:
+  line = line.strip(' \n')
+  line = line.split(' ')
+  line = tuple(line)
+  string.append(line)
+string = sorted(string, key = lambda s: s[0], reverse = True)
+string[:10]
