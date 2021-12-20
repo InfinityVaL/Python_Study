@@ -58,3 +58,16 @@ r = float(input('r = '))
 circ_sqrt(r)
 
 
+Problem 5. Installing external modules via pip:
+!pip install cowsay
+!pip install wikipedia
+import cowsay
+import wikipedia
+def random_article(n):
+  rand = wikipedia.random(n)
+  sum = wikipedia.summary(rand, 1)
+  result = cowsay.cow(sum)
+  return result
+random_article(1)
+
+
