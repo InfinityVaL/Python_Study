@@ -71,3 +71,28 @@ def random_article(n):
 random_article(1)
 
 
+Problem 6. Bonus:
+with open('anna_words.txt') as file:
+  text = file.readlines()
+text = sorted(text, key = len)
+result = []
+count = 0
+x = 1
+
+for word in text:
+  word = word.strip('\n')
+  length = 0
+  for letter in word:
+    length += 1
+  if x == length:
+    count += 1
+  else:
+    line = (length-1, count)
+    result.append(line)
+    x = length
+    count = 1
+print(result)
+
+import pandas
+table = pandas.DataFrame(result, columns = ['Length', 'Quantity'])
+table.to_excel('Задание_6._Бонусное.xlsx')
